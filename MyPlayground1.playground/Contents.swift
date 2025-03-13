@@ -1,23 +1,27 @@
+protocol AbstractOperation {
+    func perform(num1: Double, num2: Double) -> Double
+}
+
 // 각 클래스는 독립적이고 비슷한 동작을 수행하기 때문에 함수의 이름을 중복하여 사용
-class AddOperation {
+class AddOperation: AbstractOperation {
     func perform(num1: Double, num2: Double) -> Double {
         return num1 + num2
     }
 }
 
-class SubtractOperation {
+class SubtractOperation: AbstractOperation {
     func perform(num1: Double, num2: Double) -> Double {
         return num1 - num2
     }
 }
 
-class MultiplyOperation {
+class MultiplyOperation: AbstractOperation {
     func perform(num1: Double, num2: Double) -> Double {
         return num1 * num2
     }
 }
 
-class DivideOperation {
+class DivideOperation: AbstractOperation {
     // num2가 0일 경우 나누기와 나머지 연산자에서 오류 발생하여 조건문 처리
     func perform(num1: Double, num2: Double) -> Double {
         if num2 == 0 {
@@ -29,7 +33,7 @@ class DivideOperation {
     }
 }
 
-class RemainderOperation {
+class RemainderOperation: AbstractOperation {
     func perform(num1: Double, num2: Double) -> Double {
         if num2 == 0 {
             print("정의되지 않음")
