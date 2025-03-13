@@ -1,34 +1,25 @@
-class Calculator {
-    var num1: Double
-    var num2: Double
-    
-    init(num1: Double, num2: Double) {
-        self.num1 = num1
-        self.num2 = num2
-    }
-}
-
-class AddOperation: Calculator {
-    func add() -> Double {
+// 각 클래스는 독립적이고 비슷한 동작을 수행하기 때문에 함수의 이름을 중복하여 사용
+class AddOperation {
+    func perform(num1: Double, num2: Double) -> Double {
         return num1 + num2
     }
 }
 
-class SubtractOperation: Calculator {
-    func subtract() -> Double {
+class SubtractOperation {
+    func perform(num1: Double, num2: Double) -> Double {
         return num1 - num2
     }
 }
 
-class MultiplyOperation: Calculator {
-    func multiply() -> Double {
+class MultiplyOperation {
+    func perform(num1: Double, num2: Double) -> Double {
         return num1 * num2
     }
 }
 
-class DivideOperation: Calculator {
+class DivideOperation {
     // num2가 0일 경우 나누기와 나머지 연산자에서 오류 발생하여 조건문 처리
-    func divide() -> Double {
+    func perform(num1: Double, num2: Double) -> Double {
         if num2 == 0 {
             print("정의되지 않음")
             return 0
@@ -38,8 +29,8 @@ class DivideOperation: Calculator {
     }
 }
 
-class RemainderOperation: Calculator {
-    func remainder() -> Double {
+class RemainderOperation {
+    func perform(num1: Double, num2: Double) -> Double {
         if num2 == 0 {
             print("정의되지 않음")
             return 0
@@ -49,7 +40,56 @@ class RemainderOperation: Calculator {
     }
 }
 
+class Calculator {
+    // 연산 클래스의 인스턴스 생성
+    private let addOperation = AddOperation()
+    private let subtractOperation = SubtractOperation()
+    private let multiplyOperation = MultiplyOperation()
+    private let divideOperation = DivideOperation()
+    private let remainderOperation = RemainderOperation()
+    
+    var num1: Double
+    var num2: Double
+    
+    init(num1: Double, num2: Double) {
+        self.num1 = num1
+        self.num2 = num2
+    }
+    
+    // Calculator Class와 각각의 클래스를 연결
+    func add() -> Double {
+            return addOperation.perform(num1: num1, num2: num2)
+        }
+    
+    func subtract() -> Double {
+            return subtractOperation.perform(num1: num1, num2: num2)
+        }
+        
+    func multiply() -> Double {
+            return multiplyOperation.perform(num1: num1, num2: num2)
+        }
+        
+    func divide() -> Double {
+            return divideOperation.perform(num1: num1, num2: num2)
+        }
+    
+    func remainder() -> Double {
+        return remainderOperation.perform(num1: num1, num2: num2)
+    }
+}
 
-let calculator = AddOperation(num1: 6, num2: 3)
-let calculatorSubtract = SubtractOperation(num1: 10, num2: 3)
-print(calculatorSubtract.subtract())
+let calculator = Calculator(num1: 6, num2: 3)
+
+// 연산 호출
+let sum = calculator.add()
+let difference = calculator.subtract()
+let product = calculator.multiply()
+let quotient = calculator.divide()
+let remainder = calculator.remainder()
+
+// 값 출력
+print(sum)
+print(difference)
+print(product)
+print(quotient)
+print(remainder)
